@@ -16,5 +16,5 @@ export const bookSchema = z.object({
 	name: z.string(),
 	description: z.string().optional().nullable(),
 	genre: z.string().optional().nullable(),
-	numberAvailable: z.number().positive("Number of books available must be positive")
+	numberAvailable: z.number().nonnegative("Number of books available must be positive")
 })
