@@ -69,7 +69,6 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 				</div>
 			))}
 			<button type="submit">Create</button>
-			<pre>{JSON.stringify(formData)}</pre>
 		</form>
 	);
 };

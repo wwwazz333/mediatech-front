@@ -4,7 +4,7 @@ import AuthorsComponent from './authors/authors.component';
 import BooksComponent from './books/books.component';
 import CreateComponent from './global-component/create.component';
 import SearchComponent from './global-component/search.component';
-import { Author } from './models/author';
+import { Author, authorSchema } from './models/author';
 import { Book, bookSchema } from './models/books';
 
 function App() {
@@ -24,7 +24,10 @@ function App() {
       <p>-------------------------------Authors--------------------------------</p>
       <SearchComponent searchWhat="authors" newSearchToDisplay={setAuthor} fields={["id", "name"]} />
       <AuthorsComponent authors={authors} />
-
+      <CreateComponent createWhat='authors'
+        defaultData={{ name: "" }}
+        parser={(data) => authorSchema.parse(data)}
+      />
     </div>
   );
 }
