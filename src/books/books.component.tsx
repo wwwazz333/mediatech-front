@@ -1,14 +1,12 @@
 import { z } from "zod";
 import TableComponent from "../global-component/table.component";
-import { useLoad } from "../hooks/useLoad";
-import { bookSchema } from "../models/books";
+import { Book, bookSchema } from "../models/books";
 
 export interface BooksProps {
-
+	books?: Book[] | null;
 }
 
-export default function BooksComponent(params: BooksProps) {
-	const books = useLoad(`${process.env.REACT_APP_API_URL}/books`);
+export default function BooksComponent({ books }: BooksProps) {
 	return (
 		<>
 			{!books && "loading..."}
