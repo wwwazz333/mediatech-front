@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import BooksComponent from './books/books.component';
-import SearchBookComponent from './books/searchBook.component';
+import SearchComponent from './global-component/search.component';
 import { Book } from './models/books';
 
 function App() {
@@ -9,7 +9,8 @@ function App() {
 
   return (
     <div >
-      <SearchBookComponent newBooksToDisplay={setBooks} />
+      {/* <SearchBookComponent newBooksToDisplay={setBooks} /> */}
+      <SearchComponent searchWhat="books" newSearchToDisplay={setBooks} fields={["id", "name", "genre", "authorName"]} />
       <BooksComponent books={books} />
     </div>
   );
