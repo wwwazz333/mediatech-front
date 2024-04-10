@@ -7,6 +7,6 @@ export interface User {
 }
 
 export const userSchema = z.object({
-	id: z.number(),
+	id: z.number().optional().nullable(),
 	name: z.string()
 })
