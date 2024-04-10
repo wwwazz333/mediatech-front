@@ -7,12 +7,15 @@ import SearchComponent from './global-component/search.component';
 import { Author, authorSchema } from './models/author';
 import { Book, bookSchema } from './models/books';
 import { User, userSchema } from './models/user';
+import { Written, writtenSchema } from './models/written';
 import UsersComponent from './users/users';
+import WrittensComponent from './writtens/writtens';
 
 function App() {
   const [books, setBooks] = useState<Book[] | null>(null);
   const [authors, setAuthor] = useState<Author[] | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
+  const [writtens, setWrittens] = useState<Written[] | null>(null);
 
   return (
     <div >
@@ -38,6 +41,14 @@ function App() {
       <CreateComponent createWhat='users'
         defaultData={{ name: "" }}
         parser={(data) => userSchema.parse(data)}
+      />
+
+      <p>-------------------------------Written--------------------------------</p>
+      <SearchComponent searchWhat="writtens" newSearchToDisplay={setWrittens} fields={["idBook", "idAuthor"]} />
+      <WrittensComponent writtens={writtens} />
+      <CreateComponent createWhat='writtens'
+        defaultData={{ idBook: 0, idAuthor: 0, publication: new Date() }}
+        parser={(data) => writtenSchema.parse(data)}
       />
     </div>
   );

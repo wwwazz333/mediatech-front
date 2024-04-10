@@ -44,8 +44,14 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 	//get attributes from the object formData
 	const keys = Object.keys(formData);
 	const attributes: Attribute[] = keys.map((key) => {
-		const typeValue = typeof formData[key] === 'string' ? "text" : "number";
-		return { name: key, typeValue };
+		switch (typeof formData[key]) {
+			case "object":
+				return { name: key, typeValue: "date" };
+			case "string":
+				return { name: key, typeValue: "text" };
+			default:
+				return { name: key, typeValue: "number" };
+		}
 	});
 
 	return (
@@ -69,6 +75,7 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 				</div>
 			))}
 			<button type="submit">Create</button>
+			{process.env.NODE_ENV !== "production" && <pre>{JSON.stringify(formData)}</pre>}
 		</form>
 	);
 };
