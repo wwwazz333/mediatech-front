@@ -11,7 +11,9 @@ export default function BooksComponent({ books }: BooksProps) {
 		<>
 			{!books && "loading..."}
 			{books &&
-				<TableComponent headers={["Title", "Description", "genre"]} rows={z.array(bookSchema).parse(books).map((book) => [book.name, book.description ?? "", book.genre ?? ""])} />
+				<TableComponent headers={["Id", "Title", "Description", "genre"]}
+					rows={z.array(bookSchema).parse(books).map((book) =>
+						[book.id?.toString() ?? "", book.name, book.description ?? "", book.genre ?? ""]) as string[][]} />
 			}
 		</>
 	)
