@@ -63,7 +63,7 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 						type={attribute.typeValue}
 						id={attribute.name}
 						name={attribute.name}
-						value={formData[attribute.name]}
+
 						onChange={(e) => {
 							if (attribute.typeValue === "number") {
 								handleChange(attribute.name, parseFloat(e.target.value));
