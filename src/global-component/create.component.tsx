@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 interface Attribute {
@@ -27,14 +28,19 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		// Send POST request with formData
 		try {
 			const parsedData = parser(formData);
-			console.log(parsedData);
+			axios.post(`${process.env.REACT_APP_API_URL}/${createWhat}`, parsedData)
+				.then((response) => {
+					console.log(response.data);
+					setFormData(defaultData);
+				})
+				.catch((error) => console.error(error.message));
 		} catch (error) {
 			console.error(formData, error);
 		}
 	};
+
 	//get attributes from the object formData
 	const keys = Object.keys(formData);
 	const attributes: Attribute[] = keys.map((key) => {
