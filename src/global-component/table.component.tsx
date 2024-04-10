@@ -1,3 +1,4 @@
+import "./table.css";
 
 export interface TableProps {
 	headers: string[];
@@ -8,18 +9,18 @@ export default function TableComponent(params: TableProps) {
 
 	return (
 		<table>
-			<header>
+			<thead>
 				<tr>
 					{params.headers.map((header) => (
-						<th>{header}</th>
+						<th key={header}>{header}</th>
 					))}
 				</tr>
-			</header>
+			</thead>
 			<tbody>
 				{params.rows.map((row) => (
-					<tr>
-						{row.map((cell) => (
-							<td>{cell}</td>
+					<tr key={JSON.stringify(row)}>
+						{row.map((cell, index) => (
+							<td key={JSON.stringify(row) + JSON.stringify(cell) + index}>{cell}</td>
 						))}
 					</tr>
 				))}
