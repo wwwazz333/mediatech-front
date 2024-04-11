@@ -28,7 +28,8 @@
 		"start": "vite",
 		"build": "tsc && vite build",
 		"serve": "vite preview",
-		"lint": "eslint . --ext .ts,.tsx"
+		"lint": "eslint . --ext .ts,.tsx",
+		"lint-fix": "eslint . --ext .ts,.tsx --fix"
 	},
 	"eslintConfig": {
 		"extends": [

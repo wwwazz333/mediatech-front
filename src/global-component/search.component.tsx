@@ -17,7 +17,7 @@ export default function SearchComponent<T>({ newSearchToDisplay, fields, searchW
 	const submitSearch = () => {
 		const paramsSearch: any = {};
 
-		for (let filed of fields) {
+		for (const filed of fields) {
 			if (filed) {
 				paramsSearch[filed] = searchFieldsState[filed];
 			}
