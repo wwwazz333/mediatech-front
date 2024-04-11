@@ -6,7 +6,6 @@ export interface TableProps {
 }
 
 export default function TableComponent(params: TableProps) {
-
 	return (
 		<table>
 			<thead>

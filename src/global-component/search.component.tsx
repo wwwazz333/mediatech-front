@@ -22,7 +22,7 @@ export default function SearchComponent<T>({ newSearchToDisplay, fields, searchW
 				paramsSearch[filed] = searchFieldsState[filed];
 			}
 		}
-		axios.get(`${process.env.REACT_APP_API_URL}/${searchWhat}/search`,
+		axios.get(`${import.meta.env.VITE_API_URL}/${searchWhat}/search`,
 			{ params: paramsSearch })
 			.then((response) => newSearchToDisplay(response.data))
 			.catch((error) => console.error(error.message));
