@@ -30,7 +30,7 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 		e.preventDefault();
 		try {
 			const parsedData = parser(formData);
-			axios.post(`${process.env.REACT_APP_API_URL}/${createWhat}`, parsedData)
+			axios.post(`${import.meta.env.VITE_API_URL}/${createWhat}`, parsedData)
 				.then((response) => {
 					console.log(response.data);
 					setFormData(defaultData);
@@ -75,7 +75,7 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 				</div>
 			))}
 			<button type="submit">Create</button>
-			{process.env.NODE_ENV !== "production" && <pre>{JSON.stringify(formData)}</pre>}
+			{import.meta.env.NODE_ENV !== "production" && <pre>{JSON.stringify(formData)}</pre>}
 		</form>
 	);
 };

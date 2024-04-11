@@ -17,12 +17,12 @@ export default function SearchComponent<T>({ newSearchToDisplay, fields, searchW
 	const submitSearch = () => {
 		const paramsSearch: any = {};
 
-		for (let filed of fields) {
+		for (const filed of fields) {
 			if (filed) {
 				paramsSearch[filed] = searchFieldsState[filed];
 			}
 		}
-		axios.get(`${process.env.REACT_APP_API_URL}/${searchWhat}/search`,
+		axios.get(`${import.meta.env.VITE_API_URL}/${searchWhat}/search`,
 			{ params: paramsSearch })
 			.then((response) => newSearchToDisplay(response.data))
 			.catch((error) => console.error(error.message));
