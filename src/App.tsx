@@ -5,6 +5,7 @@ import BooksComponent from './books/books.component';
 import BorrowsComponent from './borrows/borrows.component';
 import CreateComponent from './global-component/create.component';
 import SearchComponent from './global-component/search.component';
+import { UserObserver } from './lib/userObserver';
 import { Author, authorSchema } from './models/author';
 import { Book, bookSchema } from './models/books';
 import { Borrow } from './models/borrow';
@@ -39,7 +40,7 @@ function App() {
       />
 
       <p>-------------------------------Users--------------------------------</p>
-      <SearchComponent searchWhat="users" newSearchToDisplay={setUsers} fields={["id", "name"]} />
+      <SearchComponent searchWhat="users" newSearchToDisplay={setUsers} fields={["id", "name"]} observer={UserObserver.getInstance()} />
       <UsersComponent users={users} />
       <CreateComponent createWhat='users'
         defaultData={{ name: "" }}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { z } from "zod";
+import DeleteButtonComponent from "../global-component/deleteButton.component";
 import ModalComponent from "../global-component/modal.component";
 import TableComponent from "../global-component/table.component";
 import { Book, bookSchema } from "../models/books";
@@ -30,8 +31,6 @@ export default function UsersComponent({ users }: UsersProps) {
 				setError("Error loading books : " + error);
 
 			});
-
-
 	}
 
 	const handleBorrowBook = (user: User) => {
@@ -54,10 +53,18 @@ export default function UsersComponent({ users }: UsersProps) {
 		<>
 			{!users && "loading..."}
 			{users &&
-				<TableComponent headers={["Id", "Name", "Borrow a Books"]}
+				<TableComponent headers={["Id", "Name", "Delete", "Borrow a Books"]}
 					rows={z.array(userSchema).parse(users).map((user) =>
-						[user.id?.toString() ?? "", user.name, (<button onClick={() => handleBorrowBook(user)}>Barrow a book</button>)])} />
+						[
+							user.id?.toString() ?? "",
+							user.name,
+							<DeleteButtonComponent endpoint={`users/${user.id}`} />,
+							<button onClick={() => handleBorrowBook(user)}>Barrow a book</button>
+						])} />
 			}
+
+
+			{/* Modal to borrow a book */}
 			<ModalComponent show={userSelecting !== undefined} hide={() => {
 				setUserSelecting(undefined);
 				setListBooks(undefined);

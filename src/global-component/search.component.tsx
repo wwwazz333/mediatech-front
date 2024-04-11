@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 
 export interface SearchProps<T> {
 	searchWhat: string;
-	newSearchToDisplay: (book: T[]) => void;
+	newSearchToDisplay: (book: T) => void;
 	fields: string[];
+	observer: Observer<T>;
 }
 
-export default function SearchComponent<T>({ newSearchToDisplay, fields, searchWhat }: SearchProps<T>) {
+export default function SearchComponent<T>({ newSearchToDisplay, fields, searchWhat, observer }: SearchProps<T>) {
 	const [searchFieldsState, setSearchFieldsState] = useState<Record<string, string>>({});
 
 	const handleInputChange = (field: string, value: string) => {
