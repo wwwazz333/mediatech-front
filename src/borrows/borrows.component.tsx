@@ -14,7 +14,7 @@ export default function BorrowsComponent({ borrows }: BorrowsProps) {
 			{borrows &&
 				<TableComponent headers={["IdBook", "IdUser", "DateBorrow"]}
 					rows={z.array(borrowSchema).parse(borrows).map((borrow) =>
-						[borrow.idBook?.toString() ?? "", borrow.idUser?.toString() ?? "", borrow.dateBorrow.toDateString()]) as string[][]} />
+						[borrow.idBook?.toString() ?? "", borrow.idUser?.toString() ?? "", borrow.dateBorrow.toDateString()])} />
 			}
 		</>
 	)

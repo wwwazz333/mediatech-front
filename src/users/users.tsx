@@ -12,9 +12,9 @@ export default function UsersComponent({ users }: UsersProps) {
 		<>
 			{!users && "loading..."}
 			{users &&
-				<TableComponent headers={["Id", "Name"]}
+				<TableComponent headers={["Id", "Name", "Borrow a Books"]}
 					rows={z.array(userSchema).parse(users).map((user) =>
-						[user.id?.toString() ?? "", user.name]) as string[][]} />
+						[user.id?.toString() ?? "", user.name, (<button>Barrow a book</button>)])} />
 			}
 		</>
 	)

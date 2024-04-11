@@ -1,8 +1,9 @@
+import React from "react";
 import "./table.css";
 
 export interface TableProps {
 	headers: string[];
-	rows: string[][];
+	rows: React.ReactNode[][];
 }
 
 export default function TableComponent(params: TableProps) {
@@ -16,10 +17,10 @@ export default function TableComponent(params: TableProps) {
 				</tr>
 			</thead>
 			<tbody>
-				{params.rows.map((row) => (
-					<tr key={JSON.stringify(row)}>
-						{row.map((cell, index) => (
-							<td key={JSON.stringify(row) + JSON.stringify(cell) + index}>{cell}</td>
+				{params.rows.map((row, index1) => (
+					<tr key={index1}>
+						{row.map((cell, index2) => (
+							<td key={index1 + " " + index2}>{cell}</td>
 						))}
 					</tr>
 				))}

@@ -14,7 +14,7 @@ export default function AuthorsComponent({ authors }: AuthorsProps) {
 			{authors &&
 				<TableComponent headers={["Id", "Name"]}
 					rows={z.array(authorSchema).parse(authors).map((author) =>
-						[author.id?.toString() ?? "", author.name]) as string[][]} />
+						[author.id?.toString() ?? "", author.name])} />
 			}
 		</>
 	)
