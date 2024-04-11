@@ -2,10 +2,12 @@ import { useState } from 'react';
 import './App.css';
 import AuthorsComponent from './authors/authors.component';
 import BooksComponent from './books/books.component';
+import BorrowsComponent from './borrows/borrows.component';
 import CreateComponent from './global-component/create.component';
 import SearchComponent from './global-component/search.component';
 import { Author, authorSchema } from './models/author';
 import { Book, bookSchema } from './models/books';
+import { Borrow } from './models/borrow';
 import { User, userSchema } from './models/user';
 import { Written, writtenSchema } from './models/written';
 import UsersComponent from './users/users';
@@ -16,6 +18,7 @@ function App() {
   const [authors, setAuthor] = useState<Author[] | null>(null);
   const [users, setUsers] = useState<User[] | null>(null);
   const [writtens, setWrittens] = useState<Written[] | null>(null);
+  const [borrows, setBorrows] = useState<Borrow[] | null>(null);
 
   return (
     <div >
@@ -50,6 +53,14 @@ function App() {
         defaultData={{ idBook: 0, idAuthor: 0, publication: new Date() }}
         parser={(data) => writtenSchema.parse(data)}
       />
+
+      <p>-------------------------------Borrow--------------------------------</p>
+      <SearchComponent searchWhat="borrows" newSearchToDisplay={setBorrows} fields={["idBook", "idUser"]} />
+      <BorrowsComponent borrows={borrows} />
+      {/* <CreateComponent createWhat='borrows'
+        defaultData={{ idBook: 0, idUser: 0, dateBorrow: new Date() }}
+        parser={(data) => borrowSchema.parse(data)}
+      /> */}
     </div>
   );
 }
