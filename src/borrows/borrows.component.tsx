@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
+import DeleteButtonComponent from "../global-component/deleteButton.component";
 import TableComponent from "../global-component/table.component";
 import { BorrowObserver } from "../lib/borrowObserver";
 import { Borrow, borrowSchema } from "../models/borrow";
@@ -22,9 +23,13 @@ export default function BorrowsComponent(params: BorrowsProps) {
 		<>
 			{!borrows && "loading..."}
 			{borrows &&
-				<TableComponent headers={["IdBook", "IdUser", "DateBorrow"]}
+				<TableComponent headers={["IdBook", "IdUser", "DateBorrow", "Return"]}
 					rows={z.array(borrowSchema).parse(borrows).map((borrow) =>
-						[borrow.idBook?.toString() ?? "", borrow.idUser?.toString() ?? "", borrow.dateBorrow.toDateString()])} />
+						[borrow.idBook?.toString() ?? "", borrow.idUser?.toString() ?? "", borrow.dateBorrow.toDateString(),
+						<DeleteButtonComponent
+							endpoint={`borrows/forUser/${borrow.idUser}/forBook/${borrow.idBook}`}
+							observer={BorrowObserver.getInstance()} />
+						])} />
 			}
 		</>
 	)
