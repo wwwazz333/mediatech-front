@@ -1,12 +1,23 @@
+import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import TableComponent from "../global-component/table.component";
+import { BookObserver } from "../lib/bookObserver";
 import { Book, bookSchema } from "../models/books";
 
 export interface BooksProps {
-	books?: Book[] | null;
 }
 
-export default function BooksComponent({ books }: BooksProps) {
+export default function BooksComponent(params: BooksProps) {
+	const [books, setBooks] = useState<Book[] | null>(null);
+
+	const updateData = useCallback((data: Book[]) => {
+		setBooks(data);
+	}, []);
+
+	useEffect(() => {
+		BookObserver.getInstance().unsubscribe(updateData);
+		BookObserver.getInstance().subscribe(updateData);
+	}, []);
 	return (
 		<>
 			{!books && "loading..."}

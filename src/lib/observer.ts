@@ -1,4 +1,4 @@
-class Observer<T> {
+export class Observer<T> {
 	private value?: T;
 	private observers: Array<(value: T) => void> = [];
 

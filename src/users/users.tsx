@@ -1,21 +1,32 @@
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import DeleteButtonComponent from "../global-component/deleteButton.component";
 import ModalComponent from "../global-component/modal.component";
 import TableComponent from "../global-component/table.component";
+import { UserObserver } from "../lib/userObserver";
 import { Book, bookSchema } from "../models/books";
 import { User, userSchema } from "../models/user";
 
 export interface UsersProps {
-	users?: User[] | null;
 }
 
-export default function UsersComponent({ users }: UsersProps) {
+export default function UsersComponent(params: UsersProps) {
 	const [userSelecting, setUserSelecting] = useState<User>();
 	const [listBooks, setListBooks] = useState<Book[]>();
 	const [selectedBook, setSelectedBook] = useState<number>();
 	const [error, setError] = useState<string>();
+
+	const [users, setUsers] = useState<User[] | null>(null);
+
+	const updateData = useCallback((data: User[]) => {
+		setUsers(data);
+	}, []);
+
+	useEffect(() => {
+		UserObserver.getInstance().unsubscribe(updateData);
+		UserObserver.getInstance().subscribe(updateData);
+	}, []);
 
 
 	const borrow = (user: User, idBook: number) => {
@@ -58,7 +69,7 @@ export default function UsersComponent({ users }: UsersProps) {
 						[
 							user.id?.toString() ?? "",
 							user.name,
-							<DeleteButtonComponent endpoint={`users/${user.id}`} />,
+							<DeleteButtonComponent endpoint={`users/${user.id}`} observer={UserObserver.getInstance()} />,
 							<button onClick={() => handleBorrowBook(user)}>Barrow a book</button>
 						])} />
 			}

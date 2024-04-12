@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Observer } from "../lib/observer";
 
 export interface SearchProps<T> {
 	searchWhat: string;
-	newSearchToDisplay: (book: T) => void;
 	fields: string[];
 	observer: Observer<T>;
 }
 
-export default function SearchComponent<T>({ newSearchToDisplay, fields, searchWhat, observer }: SearchProps<T>) {
+export default function SearchComponent<T>({ fields, searchWhat, observer }: SearchProps<T>) {
 	const [searchFieldsState, setSearchFieldsState] = useState<Record<string, string>>({});
 
 	const handleInputChange = (field: string, value: string) => {
@@ -19,13 +19,13 @@ export default function SearchComponent<T>({ newSearchToDisplay, fields, searchW
 		const paramsSearch: any = {};
 
 		for (const filed of fields) {
-			if (filed) {
+			if (filed && searchFieldsState[filed] && searchFieldsState[filed].length > 0) {
 				paramsSearch[filed] = searchFieldsState[filed];
 			}
 		}
 		axios.get(`${import.meta.env.VITE_API_URL}/${searchWhat}/search`,
 			{ params: paramsSearch })
-			.then((response) => newSearchToDisplay(response.data))
+			.then((response) => observer.notify(response.data))
 			.catch((error) => console.error(error.message));
 	};
 

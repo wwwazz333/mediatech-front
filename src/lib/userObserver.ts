@@ -1,4 +1,6 @@
 import { User } from "../models/user";
+import { Observer } from "./observer";
+
 
 export class UserObserver extends Observer<User[]> {
 	private static instance: UserObserver;

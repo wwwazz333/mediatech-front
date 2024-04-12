@@ -1,5 +1,7 @@
+import { Author } from "../models/author";
+import { Observer } from "./observer";
 
-export class AuthorObserver extends Observer<AuthorObserver[]> {
+export class AuthorObserver extends Observer<Author[]> {
 	private static instance: AuthorObserver;
 	private constructor() {
 		super();

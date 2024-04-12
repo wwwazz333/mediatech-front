@@ -1,4 +1,5 @@
 import { Book } from "../models/books";
+import { Observer } from "./observer";
 
 export class BookObserver extends Observer<Book[]> {
 	private static instance: BookObserver;

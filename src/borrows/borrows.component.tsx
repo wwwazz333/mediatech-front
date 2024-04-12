@@ -1,13 +1,23 @@
+import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import TableComponent from "../global-component/table.component";
+import { BorrowObserver } from "../lib/borrowObserver";
 import { Borrow, borrowSchema } from "../models/borrow";
 
 export interface BorrowsProps {
-	borrows?: Borrow[] | null;
 }
 
-export default function BorrowsComponent({ borrows }: BorrowsProps) {
+export default function BorrowsComponent(params: BorrowsProps) {
+	const [borrows, setBorrows] = useState<Borrow[] | null>(null);
 
+	const updateData = useCallback((data: Borrow[]) => {
+		setBorrows(data);
+	}, []);
+
+	useEffect(() => {
+		BorrowObserver.getInstance().unsubscribe(updateData);
+		BorrowObserver.getInstance().subscribe(updateData);
+	}, []);
 	return (
 		<>
 			{!borrows && "loading..."}
