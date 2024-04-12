@@ -18,14 +18,11 @@ export default function DeleteButtonComponent<T>({ endpoint, observer }: DeleteB
 				if (observer && oldData && Object.prototype.toString.call(oldData) === '[object Array]') {
 					try {
 						const array: any[] = [];
-						console.log(array);
 						for (let obj of oldData as any[]) {
-							console.log(obj.id, response.data.id)
 							if (obj.id !== response.data.id) {
 								array.push(obj);
 							}
 						}
-						console.log(array);
 						observer.notify(array as T);
 					} catch (error) {
 						console.error(error);

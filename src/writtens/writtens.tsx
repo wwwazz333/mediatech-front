@@ -1,13 +1,23 @@
+import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
 import TableComponent from "../global-component/table.component";
+import { writtenObserver } from "../lib/writtenObserver";
 import { Written, writtenSchema } from "../models/written";
 
 export interface WrittensProps {
-	writtens?: Written[] | null;
 }
 
-export default function WrittensComponent({ writtens }: WrittensProps) {
+export default function WrittensComponent(params: WrittensProps) {
+	const [writtens, setWrittens] = useState<Written[] | null>(null);
 
+	const updateData = useCallback((data: Written[]) => {
+		setWrittens(data);
+	}, []);
+
+	useEffect(() => {
+		writtenObserver.getInstance().unsubscribe(updateData);
+		writtenObserver.getInstance().subscribe(updateData);
+	}, []);
 	return (
 		<>
 			{!writtens && "loading..."}

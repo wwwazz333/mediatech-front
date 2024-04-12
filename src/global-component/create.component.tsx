@@ -1,18 +1,20 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Observer } from '../lib/observer';
 
 interface Attribute {
 	name: string;
 	typeValue: React.HTMLInputTypeAttribute;
 }
 
-export interface CreateComponentProps {
+export interface CreateComponentProps<T> {
 	createWhat: string;
 	parser: (data: any) => any;
 	defaultData: any;
+	observer?: Observer<T>
 }
 
-export default function CreateComponent({ parser, createWhat, defaultData }: CreateComponentProps) {
+export default function CreateComponent<T>({ parser, createWhat, defaultData, observer }: CreateComponentProps<T>) {
 	const [formData, setFormData] = useState(defaultData);
 
 	const handleChange = (name: string, value: any) => {
@@ -33,6 +35,12 @@ export default function CreateComponent({ parser, createWhat, defaultData }: Cre
 			axios.post(`${import.meta.env.VITE_API_URL}/${createWhat}`, parsedData)
 				.then((response) => {
 					console.log(response.data);
+					if (observer) {
+						const oldData = observer.getValue();
+						if (oldData && Object.prototype.toString.call(oldData) === '[object Array]') {
+							observer.notify([...oldData as T[], response.data] as T);
+						}
+					}
 					setFormData(defaultData);
 				})
 				.catch((error) => console.error(error.message));

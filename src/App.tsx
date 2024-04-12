@@ -24,7 +24,9 @@ function App() {
       <p>-------------------------------Books--------------------------------</p>
       <SearchComponent searchWhat="books" fields={["id", "name", "genre", "authorName"]} observer={BookObserver.getInstance()} />
       <BooksComponent />
-      <CreateComponent createWhat='books'
+      <CreateComponent
+        observer={BookObserver.getInstance()}
+        createWhat='books'
         defaultData={{ name: "", genre: "", description: "", numberAvailable: 0 }}
         parser={(data) => bookSchema.parse(data)}
       />
@@ -32,7 +34,9 @@ function App() {
       <p>-------------------------------Authors--------------------------------</p>
       <SearchComponent searchWhat="authors" observer={AuthorObserver.getInstance()} fields={["id", "name"]} />
       <AuthorsComponent />
-      <CreateComponent createWhat='authors'
+      <CreateComponent
+        observer={AuthorObserver.getInstance()}
+        createWhat='authors'
         defaultData={{ name: "" }}
         parser={(data) => authorSchema.parse(data)}
       />
@@ -40,7 +44,9 @@ function App() {
       <p>-------------------------------Users--------------------------------</p>
       <SearchComponent searchWhat="users" fields={["id", "name"]} observer={UserObserver.getInstance()} />
       <UsersComponent />
-      <CreateComponent createWhat='users'
+      <CreateComponent
+        observer={UserObserver.getInstance()}
+        createWhat='users'
         defaultData={{ name: "" }}
         parser={(data) => userSchema.parse(data)}
       />
@@ -48,7 +54,9 @@ function App() {
       <p>-------------------------------Written--------------------------------</p>
       <SearchComponent searchWhat="writtens" observer={writtenObserver.getInstance()} fields={["idBook", "idAuthor"]} />
       <WrittensComponent />
-      <CreateComponent createWhat='writtens'
+      <CreateComponent
+        observer={writtenObserver.getInstance()}
+        createWhat='writtens'
         defaultData={{ idBook: 0, idAuthor: 0, publication: new Date() }}
         parser={(data) => writtenSchema.parse(data)}
       />
