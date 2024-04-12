@@ -4,6 +4,7 @@ import { z } from "zod";
 import DeleteButtonComponent from "../global-component/deleteButton.component";
 import ModalComponent from "../global-component/modal.component";
 import TableComponent from "../global-component/table.component";
+import { BorrowObserver } from "../lib/borrowObserver";
 import { UserObserver } from "../lib/userObserver";
 import { Book, bookSchema } from "../models/books";
 import { User, userSchema } from "../models/user";
@@ -36,6 +37,8 @@ export default function UsersComponent(params: UsersProps) {
 				setListBooks(undefined);
 				setUserSelecting(undefined);
 				setSelectedBook(undefined);
+				//update borrows
+				BorrowObserver.getInstance().notify([...BorrowObserver.getInstance().getValue() ?? [], response.data]);
 			})
 			.catch((error) => {
 				console.error(error);
