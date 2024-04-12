@@ -97,9 +97,7 @@ export default function UsersComponent(params: UsersProps) {
 							}}>
 								{
 									listBooks.map((book) =>
-										<>{
-											book.id && <option key={book.id} value={book.id}>{book.name}</option>
-										}</>
+										book.id && <option key={book.id} value={book.id}>{book.name}</option>
 									)
 								}
 							</select>
